@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react'
-import './App.css'
+import { useState, useEffect } from 'react';
+import './App.css';
 
 function App() {
 
@@ -28,18 +28,39 @@ function App() {
 
     const task = list.map((item, i) => {
       return (
-
-        <li className='list__item' key={item.id}> {item.title} </li>
-
+        <>
+          <input type='checkbox' onChange={console.log('ta ne?')} checked={item.isDone}></input>
+          <li className='list__item'> {item.title} </li>
+        </>
       );
     });
 
-    console.log(task);
+    // console.log(task);
+
+    let text = '';
+
+    const inputText = (inputValue) => {
+      text = inputValue.target.value;
+    };
+
+    const addTask = () => {
+      // setList(text);
+      const newTask = {
+        "id": Date.now() + "",
+        "title": text,
+        "isDone": false,
+      };
+
+      setList([
+        newTask,
+        ...list,
+      ]);
+    }
 
   return (
     <>
-      <input type="text" placeholder="What needs to be done?"></input>
-      <button>Send</button>
+      <input onInput={(a) => {inputText(a)}} type="text" placeholder="What needs to be done?"></input>
+      <button onClick={() => addTask()}>Send</button>
 
       <ul className='list'>
         {task}
